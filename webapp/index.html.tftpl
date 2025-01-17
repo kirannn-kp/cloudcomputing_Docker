@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .styled-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .styled-button:hover {
+            background-color: #45a049;
+        }
+
+        .styled-message {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            width: 80%;
+            max-width: 600px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello Cloud</h1>
+    <button id="callApiButton" class="styled-button">Call API</button>
+    <p id="apiResponse" class="styled-message"></p>
+
+    <script>
+        const apiUrl = "${api_url}";  // This gets replaced by Terraform
+        console.log("API URL:", apiUrl);  // Log the API URL for debugging
+
+        document.getElementById('callApiButton').addEventListener('click', () => {
+            fetch(apiUrl)
+                .then(response => {
+                    console.log("Response:", response);  // Log the response for debugging
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Data:", data);  // Log the data for debugging
+                    document.getElementById('apiResponse').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById('apiResponse').textContent = "An error occurred while fetching the API.";
+                });
+        });
+    </script>
+</body>
+</html>
