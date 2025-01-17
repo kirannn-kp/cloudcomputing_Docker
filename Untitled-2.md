@@ -1,0 +1,1 @@
+docker push gcr.io/team9-446912/api-service-image:latest 
